@@ -1,0 +1,58 @@
+<!--
+    Napisz funkcję, która będzie prostą wersją gry “Kamień, papier, nożyce”. Może to być wersja polska lub angielska. Funkcja jako argumenty przyjmuje dwa stringi (“kamień”, “papier” lub “nożyce”), a następnie w formie alertu podaje wynik (czyli np. wypisuje “Gracz nr 1 wygrał” – zakładamy, że gracz numer 1 to osoba, która podała pierwszy string). Jeśli do funkcji zostanie podany nieodpowiedni argument, tj. taki, który nie jest ani kamieniem, ani papierem, ani nożycami, poinformuj o tym gracza wyświetlając alert z tekstem.
+-->
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <meta charset="utf-8">
+    <title> Najwieksza liczb ( znak ) </title>
+
+</head>
+<body>
+
+    <!-- INPUT -->
+    Wpisz liczby ( znaki ) 
+    <input type="tekst" id="input1">
+    <button onclick="start()"> Sprawdz </button>
+
+
+    <!-- OUTPUT -->
+    <br><br>
+    <div id="wynik">
+        wynik
+    </div>
+
+    <!-- SKRYPT -->
+    <script type="text/javascript">
+
+        async function start(){
+
+            const liczby = document.getElementById('input1').value
+
+            let array = liczby
+
+            let king = 0
+
+            for(i in array){
+
+                let x = Number(array[i])
+
+                console.log(x)
+                if(x > king){
+
+                    king = x
+
+                }
+
+            }
+
+            document.getElementById('wynik').innerHTML = `Najwieksza liczba to ${king}`
+
+        }
+    
+    </script>
+
+</body>
+</html>
