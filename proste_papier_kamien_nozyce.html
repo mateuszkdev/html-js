@@ -1,0 +1,139 @@
+<!--
+    Napisz funkcję, która będzie prostą wersją gry “Kamień, papier, nożyce”. Może to być wersja polska lub angielska. Funkcja jako argumenty przyjmuje dwa stringi (“kamień”, “papier” lub “nożyce”), a następnie w formie alertu podaje wynik (czyli np. wypisuje “Gracz nr 1 wygrał” – zakładamy, że gracz numer 1 to osoba, która podała pierwszy string). Jeśli do funkcji zostanie podany nieodpowiedni argument, tj. taki, który nie jest ani kamieniem, ani papierem, ani nożycami, poinformuj o tym gracza wyświetlając alert z tekstem.
+-->
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <meta charset="utf-8">
+    <title> Prosta gra papier kamien i nozyce </title>
+
+</head>
+<body>
+
+    <!-- INPUT -->
+    Wybierz opcje jaką chcesz wybrać <code>Papier / Kamień / Nożyce</code><br>
+        <br>
+    <button onclick="start('papier')"> Papier </button>
+    <button onclick="start('kamień')"> Kamień </button>
+    <button onclick="start('nożyce')"> Nożyce </button><br><br>
+
+    <!-- OUTPUT -->
+    <div id="pkt">
+        Punkty: <br> Gracz: 0 <br> Komputer: 0
+    </div>
+    <br><br>
+    <div id="wynik">
+        kto wygra?
+    </div>
+
+    <!-- SKRYPT -->
+    <script type="text/javascript">
+
+        var end = false
+
+        let punkty = {
+            gracz: 0,
+            komputer: 0
+        }
+    
+        async function over(status, komunikat){
+
+            const output = document.getElementById('wynik')
+            const pkt = document.getElementById('pkt')
+
+            if(status == true){
+                //gracz wygrywa
+                punkty.gracz++
+                pkt.innerHTML = `Punkty: <br> Gracz: ${punkty.gracz} <br> Komputer: ${punkty.komputer}`
+                return output.innerHTML = `Wygrywasz! ${komunikat}`
+                
+
+            } else if (status == false){
+                //gracz przegrywa
+                punkty.komputer++
+                pkt.innerHTML = `Punkty: <br> Gracz: ${punkty.gracz} <br> Komputer: ${punkty.komputer}`
+                return output.innerHTML = `Przegrywasz! ${komunikat}`
+
+            } else if (status == 'remis'){
+                //remis
+                return output.innerHTML = `Remis! ${komunikat}`
+
+            } else {
+                return
+            }
+
+        }
+
+        async function start(opcja){
+
+            const opcje = ['papier', 'kamień', 'nożyce']
+
+            const input = opcja
+
+            const result = Math.floor((Math.random() * opcje.length ))
+
+            const wynik = opcje[result]
+
+            // if'y " podstawa " programu 
+            if(wynik === 'papier'){
+
+                if(input === 'kamień'){
+
+                    over(false, 'Kamień zakryty przez papier') // gracz przegrywa ( kamien zakryty przez papier )
+
+                } else if (input === 'papier'){
+
+                    over('remis', 'Papier + Papier = remis..') // gracz przegrywa ( papier + papier = remis )
+
+                } else if (input === 'nożyce'){
+
+                   over(true, 'Nożyce niszczą papier komputera!') // graczy wygrywa ( nozyce niszcza papier komputera )
+
+                }
+
+            } else if (wynik === 'kamień'){
+
+                if(input === 'kamień'){
+
+                    over('remis', 'Kamień + Kamień = rmeis...') // gracz przegrywa ( kamień + kamień = remis )
+
+                } else if (input === 'papier'){
+
+                    over(true, 'Zakrywasz kamień komputera papierem') // gracz wygrywa ( zakrywa kamien komputera papierem )
+
+                } else if (input === 'nożyce'){
+
+                    over(false, 'Komputer papierem niszczy nożyce gracza') // gracz przegrywa ( komputer papierem niszczy nożyce gracza )
+
+                }
+
+            } else if (wynik === 'nożyce'){
+
+                if(input === 'kamień'){
+
+                    over(true, 'Niszczysz nożyce komputera kamieniem') // gracz wygrywa ( niszczy nozyce komputera kamieniem )
+
+                } else if (input === 'papier'){
+
+                    over(false, 'Komputer tnie papier nożycami') // gracz przegrywa ( komputer tnie papier nozycami )
+
+                } else if (input === 'nożyce'){
+
+                    over('remis', 'Nożyce + Nożyce = remis!') // gracz przegrywa ( nozyce + nozyce = remis )
+
+                }
+
+            } else {
+
+                over('false', 'Podałeś złe wartośći! Przegrywasz poddaniem sie!') // gracz dostaje info zwrotne ze źle gra
+
+            }
+
+        }
+    
+    </script>
+
+</body>
+</html>
