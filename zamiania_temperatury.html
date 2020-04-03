@@ -1,0 +1,104 @@
+<!--
+    Write a JavaScript program to convert temperatures to and from Celsius, Fahrenheit.
+-->
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <meta charset="UTF-8">
+    <title> C na F i F na C </title>
+
+</head>
+<body>
+
+    <!-- INPUT -->
+    <div id="content">
+
+        Wybierz czynność: <br>
+        <button onclick="makeMeC()">Oblicz na stopnie celsiusza</button> <br>
+        <button onclick="makeMeF()">Oblicz na stopnie fahrenheita</button> <br>
+
+    </div>
+
+    <!-- OUTPUT -->
+    <div id="div1">
+        Wynik ukaże się tutaj.
+    </div>
+
+    <!-- SKRYPT -->
+    <script type="text/javascript">
+
+        //data do podmiany HTML'a
+        const data = {
+            startC: `Podaj temperaturę w stopniach C <input type="text" id="a">`,
+            startF: `Podaj temperaturę w stopniach F <input type="text" id="a">`,
+            stopC: `<button onclick="obliczC()"> Oblicz </button`,
+            stopF: `<button onclick="obliczF()"> Oblicz </button`,
+        }
+        
+        // funkcje pomicnicze
+        async function napisz(id, content){
+
+            const doc = document.getElementById(id)
+            if(!doc) return console.warn('Nie podano ID')
+
+            return doc.innerHTML = content
+
+        }
+
+        //funkcje podmiany diva' #content
+        async function makeMeC(){
+
+            napisz('content', [
+                `${data.startC}`,
+                `${data.stopC}`
+            ].join('<br>'))
+
+        }
+
+        async function makeMeF(){
+
+            napisz('content', [
+                `${data.startF}`,
+                `${data.stopF}`
+            ].join('<br>'))
+
+        }
+    
+        // main funciton's
+
+        async function obliczC(){
+
+            let a = document.getElementById('a').value
+
+            a = parseFloat(a)
+
+            if(isNaN(a)) return napisz('div1', 'Podana wartość temperatry nie jest liczbą')
+
+            const wynik = a * 9 / 5 + 32
+
+            const message = `${a}°C to ${wynik}°F` 
+
+            return napisz('div1', message)
+        }
+
+        async function obliczF(){
+
+            let a = document.getElementById('a').value
+
+            a = parseFloat(a)
+
+            if(isNaN(a)) return napisz('div1', 'Podana wartość temperatry nie jest liczbą')
+
+            const wynik = (a - 32) * 5 / 9
+
+            const message = `${a}°F to ${wynik}°C` 
+
+            return napisz('div1', message)
+        }
+
+    </script>
+
+</body>
+</html>
