@@ -1,0 +1,58 @@
+<!-- Program wyświetlający ostatniego użytkownika z danego PC wchodzącego na strone  --> 
+<!DOCTYPE html>
+<html lang="PL">
+
+	<head>
+	
+		<meta chrset="UTF-8"> 
+		<title> Ostatni użytkownik </title>
+	
+	</head>
+	
+	<body>
+	
+		<div id="box">
+
+			<section id="input">
+			
+				Jak masz na imię? <input type="text" id="input_name">
+				<button onclick="check();"> Wejdź </button>
+			
+			</section>
+
+		
+		</div>
+	
+		<script type="text/javascript">
+		
+			const check = function () {
+			
+				let imie = document.getElementById("input_name").value
+				
+				if(!imie) return alert("Podaj imie!")
+				
+				let display_name
+				
+				if(localStorage.getItem("lastUser")){
+				
+					display_name = localStorage.getItem("lastUser")
+					
+					localStorage.setItem("lastUser",  imie)
+					
+					document.getElementById("box").innerHTML = `Witaj ${imie}, poprzednio logowałeś się jako: ${display_name}`
+				
+				} else {
+				
+					localStorage.setItem("lastUser", imie)
+					
+					document.getElementById("box").innerHTML = `Wtaj ${imie} poraz pierwszy!`
+				
+				}
+				
+			}
+		
+		</script>
+	
+	</body>
+
+</html>
