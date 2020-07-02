@@ -1,0 +1,155 @@
+<!-- JavaScript prosty panel rejestracji  -->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<meta chrset="UTF-8"> 
+		<title> Rejestracja </title>
+	
+		<style>
+
+			.bad {
+
+				font-size: 20px;
+				color: red;
+
+			}
+
+			b {
+
+				color: gray;
+
+			}
+
+			body {
+
+				background-color: rgb(165, 171, 197);
+
+			}
+
+		</style>
+
+	</head>
+	
+	<body>
+	
+		<div id="box" style="text-align: center; font-size: 30px;">
+		
+			Imie: <input type="text" id="input_imie"> <br> <p class="bad" id="error_imie"> </p> <br>
+			Nazwisko: <input type="text" id="input_nazwisko"> <br> <p class="bad" id="error_nazwisko"> </p> <br>
+			Wiek: <input type="number" id="input_wiek"> <br> <p class="bad" id="error_wiek"> </p> <br>
+			E-mail: <input type="e-mail" id="input_email"> <br> <p class="bad" id="error_email"> </p> <br>
+			Haslo: <input type="password" id="input_haslo"> <br> <p class="bad" id="error_haslo_1"></p> <br>
+			Potwierdz haslo: <input type="password" id="input_haslo_2"> <br> <p class="bad" id="error_haslo_2"></p> <br>
+			Akceptuj regulamin: <button onclick="akceptacja = true"> Kliknij </button> <br><p class="bad" id="error_zgoda"> </p>
+			
+			<button onclick="check();"> Rejestracja </button>
+  		
+		</div>
+	
+		<script type="text/javascript">
+		
+			var akceptacja = false
+			const get = (id) => { return document.getElementById(id).value }
+			var data = {}
+
+			const dalej = function () {
+
+					let haselko = get("no_to_sprawdzmy")
+					let dalejj
+					
+					data.haslo == haselko ? dalejj = true : dalejj = false
+
+					let and_wiek = (x) => {
+
+						if(x > 18){
+
+							return `Jesteś pełnoleti od ${x - 18} lat!`
+
+						} else if(x < 18) {
+
+							return `Nie masz jeszcze 18 lat, ale będziesz mieć za: ${18 - x} lat!`
+
+						} else {
+
+							return "Skończyłeś 18 lat w tym roku!"
+
+						}
+
+					}
+
+					if(dalejj) {
+
+						document.getElementById("box").innerHTML = 
+						`
+						Witaj <b>${data.imie}</b><br>
+						Masz <b>${data.wiek}</b> lat i <b>${and_wiek(data.wiek)}</b> <br>
+						E-mail kontaktowy: <b>${data.e_mail}</b>
+
+						`
+
+					} else {
+
+						return prompt("Podaj poprawne hasło!!")
+
+					}
+
+				}
+
+			const check = function () {
+			
+				let blad = (id, content) => {
+					
+					let clear = (id) => { document.getElementById(id).innerHTML = "" }
+					clear("error_imie"); clear("error_nazwisko"); clear("error_wiek"); clear("error_email")
+					clear("error_haslo_1"); clear("error_haslo_2")
+				
+					return document.getElementById(id).innerHTML = `Blad: Podaj: ${content}`
+				
+				}
+			
+				data = {
+				
+					imie: get("input_imie"),
+					nazwisko: get("input_nazwisko"),
+					wiek: parseInt(get("input_wiek")),
+					e_mail: get("input_email"),
+					haslo: get("input_haslo"),
+					potwierdz_haslo: get("input_haslo_2"),
+					zgoda: akceptacja ? true : false
+				
+				}
+				
+				if(!data.imie) return blad("error_imie", "Imie")
+				if(!data.nazwisko) return blad("error_nazwisko", "Nazwisko")
+				if(!data.wiek || isNaN(data.wiek)) return blad("error_wiek", "Wiek")
+				if(!data.e_mail) return blad("error_email", "E-mail")
+				if(!data.haslo) return blad("error_haslo_1", "Hasło")
+				if(!data.potwierdz_haslo) return blad("error_haslo_2", "Poprawnie potwierdzone hasło")
+				if(data.haslo != data.potwierdz_haslo) return blad("error_haslo_2", "Poprawne oba hasła")
+				if(!data.zgoda) return document.getElementById("error_zgoda").innerHTML = "Blad: Musisz zaakceptowac."
+
+				if(data.haslo.length < 4) return blad("error_haslo_1", "Hasło dłuższe niż 4 znaki")
+				if(data.haslo.slice(0) == data.haslo.slice(0).toLowerCase()) return blad("error_haslo_1", "Hasło zaczynające sie od dużej litery!")
+
+				
+				const formula = 
+				`
+				Twoje imie to: <b>${data.imie}</b> a nazwisko to <b>${data.nazwisko}</b> <br>
+				Będziemy się z tobą kontaktować pod mailem: <b>${data.e_mail}</b>!
+				Ale najpierw podaj hasło: <input type="password" id="no_to_sprawdzmy"> <button onclick="dalej();">Dalej!</button>
+				`
+				
+				document.getElementById("box").innerHTML = formula
+
+
+			
+			}
+			
+		</script>
+	
+	</body>
+
+</html>
