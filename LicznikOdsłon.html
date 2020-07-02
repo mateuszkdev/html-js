@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="PL">
+
+	<head>
+	
+		<meta charset="UTF-8">
+		<title> Licznik odsłon strony ? </title>
+	
+	</head>
+	
+	<body>
+	
+		<!-- div z tekstem odnoście licznika wejść na stronę www -->
+		<div id="content">Odwiedziłeś tą stronę już 0 raz!</div>
+		
+		<script type="text/javascript">
+			
+			// deklaracja początkowej wartości dla licznika wejść na stronę.
+			let liczbaWejsc = 1
+			
+			// sprawdzanie czy w lokalnej pamieci istnieje "count"
+			if(localStorage.getItem("count")) {
+			
+				// jeżeli tak, pobieranie wartości  oraz dodawanie 1 jako kolejne wejście na strone.
+				liczbaWejsc = parseInt(localStorage.getItem("count")) + 1
+				// nadpisywanie wartości dla count w lokalnej pamięci
+				localStorage.setItem("count", liczbaWejsc)
+			
+			} else {
+			
+				// jeżeli w lokalnej pamięci nie ma "count", utworzenie tego z wartością 1
+				localStorage.setItem("count", liczbaWejsc)
+				
+			}
+			
+			// wypisanie na stronie tego, które to nasze ( lokalne z daneg pc ) wejście na stronę.
+			document.getElementById("content").innerHTML = `Odwiedziłeś tą stronę już ${liczbaWejsc} raz!`
+
+		
+		</script>
+	
+	</body>
+
+</html>
